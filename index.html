@@ -1,49 +1,48 @@
-<！教义类型 html>
-<html 朗=“zh-CN”>
-<头>
-  <元 字符集=“UTF-8”>
-  <元 名=“视口” 内容=“宽度=设备宽度,初始比例=1。0”>
-  <标题>迷你应用程序</标题>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的 Mini App</title>
 
-  <！-- 莫内塔格 -->
-  <元 名=“莫内塔格” 内容="2cec5137a87292f76b4e6c6e136d2a29">
+  <!-- Monetag 识别标签 -->
+  <meta name="monetag" content="2cec5137a87292f76b4e6c6e136d2a29">
 
-  <！-- SDK ちちちちち
-  <脚明 供应链=“//libtl。com/sdk。js” 数据区=“9780898” 数据 SDK=“显示_9780898”></脚本>
-</大>
-<身体>
-  <h1>迷你应用程序 🎮</h1>
-  <p>应用内应用</p>
+  <!-- SDK 脚本 -->
+  <script src="//libtl.com/sdk.js" data-zone="9780898" data-sdk="show_9780898"></script>
+</head>
+<body>
+  <h1>欢迎来到我的 Mini App 🎮</h1>
+  <p>In-App 插页广告将在页面内自动显示</p>
 
-  <按钮 id=“奖励Btn”>领取奖励广告</按钮>
+  <button id="rewardBtn">领取奖励广告</button>
 
-  <脚本>
- // 等页面加载完成再调用广告函数
- 窗户。添加事件监听器(“加载”, 功能() {
- // 激励广告按钮
- 文档。获取元素ById(“奖励Btn”)。点子 = 功能() {
- 如果（类型 显示_9780898 === “功能”){
- 显示_9780898(); // 弹广告
- } 得的 {
- 警报(“广告 SDK 圪加彽完成,请刷新页面”);
+  <script>
+    // 等页面加载完成再调用广告函数
+    window.addEventListener('load', function() {
+      // 激励广告按钮
+      document.getElementById("rewardBtn").onclick = function() {
+        if(typeof show_9780898 === 'function'){
+          show_9780898(); // 弹广告
+        } else {
+          alert("广告 SDK 未加载完成，请刷新页面");
         }
- };
+      };
 
- // 应唨内应用
- 如果（类子 显示_9780898 === “功能”) {
- 显示_9780898({
- 类型: “应用内”,
- 在应用程序设置中: {
- 频率: 2,
- 封盖: 0。1、
- 间隔:30,
- 超时:5,
- 每页: 错误的
+      // 自动 In-App 插页广告
+      if(typeof show_9780898 === 'function') {
+        show_9780898({
+          type: 'inApp',
+          inAppSettings: {
+            frequency: 2,
+            capping: 0.1,
+            interval: 30,
+            timeout: 5,
+            everyPage: false
           }
- });
+        });
       }
- });
-  </脚本>
-</身体>
+    });
+  </script>
+</body>
 </html>
-
