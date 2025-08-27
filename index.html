@@ -5,40 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>我的 Mini App</title>
 
-  <!-- 这是 SDK 脚本，平台给你的 -->
+  <!-- SDK 脚本（广告平台提供的） -->
   <script src="//libtl.com/sdk.js" data-zone="9780898" data-sdk="show_9780898"></script>
 </head>
 <body>
   <h1>欢迎来到我的 Mini App 🎮</h1>
-  <p>点击按钮测试广告</p>
-
-  <!-- 激励广告按钮 -->
-  <button id="rewardBtn">领取奖励广告</button>
-
-  <!-- 弹窗广告按钮 -->
-  <button id="popupBtn">打开奖励弹窗</button>
+  <p>In-App 插页广告将在页面内自动显示</p>
 
   <script>
-    // 激励广告：点击后触发广告
-    document.getElementById("rewardBtn").onclick = function() {
-      show_9780898();  // SDK 自带的函数
-      alert("广告看完后，你可以给用户发奖励");
-    };
-
-    // 奖励弹窗：直接进入优惠页面
-    document.getElementById("popupBtn").onclick = function() {
-      show_9780898({ type: 'rewardedPopup' });
-    };
-
-    // 应用内插页式广告（自动弹出）
-    show_9780898({
-      type: 'inApp',
-      inAppSettings: {
-        frequency: 2,   // 自动展示 2 次
-        capping: 0.1,   // 限制 6 分钟内最多展示
-        interval: 30,   // 广告之间间隔 30 秒
-        timeout: 5,     // 页面打开后 5 秒再显示
-        everyPage: false
+    // 等页面完全加载后再调用广告函数
+    window.addEventListener('load', function() {
+      if(typeof show_9780898 === 'function') {
+        show_9780898({
+          type: 'inApp',            // 应用内插页广告
+          inAppSettings: {
+            frequency: 2,           // 自动展示 2 次
+            capping: 0.1,           // 在 0.1 小时（6 分钟）内最多显示 2 次
+            interval: 30,           // 每次广告间隔 30 秒
+            timeout: 5,             // 页面加载 5 秒后首次展示广告
+            everyPage: false        // 页面切换不重置计数
+          }
+        });
+      } else {
+        console.error("广告 SDK 未加载完成，请刷新页面");
       }
     });
   </script>
