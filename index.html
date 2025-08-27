@@ -1,23 +1,46 @@
-<！DOCTYPE html>
-<html lang<html lang="zh-CN">"zh-CN">
-<大>
- <UTF-8">
- <meta name <meta name="视口"内容="宽度=设备宽度,初始比例=1。0">"viewport" content="width=设备宽度,初始比例=1。0">
- <title>标题是作者本人</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的 Mini App</title>
 
- <！-- 下一面一題就是一罠嚄广告 SDK -->
- <脚本 src <脚本="//libtl。com/sdk。js" data-zone="9780898" data-sdk="show_9780898"></显示>src="//libtl。com/sdk。js" data-zone="9780898" data-sdk="show_9780898"></显示>
-</大>
-<身体>
- <h1>我彠应用程序我彠应用程序 🎮</h1>
- <p>在下面按钮观看广告领取奖励</p>
- <按钮id <奖励id="rewardBtn">奖励id="rewardBtn"</奖励>
+  <!-- 这是 SDK 脚本，平台给你的 -->
+  <script src="//libtl.com/sdk.js" data-zone="9780898" data-sdk="show_9780898"></script>
+</head>
+<body>
+  <h1>欢迎来到我的 Mini App 🎮</h1>
+  <p>点击按钮测试广告</p>
 
- <脚明>
- // 当用户点击按钮时展示广告
- 文档。getElementById('rewardBtn')。onclick  文档。getElementById('rewardBtn')。onclick = 拍拍() {
- show_9780898(); // 展示 SDK 弹广告
-        }
- </脚本>
-</身体>
+  <!-- 激励广告按钮 -->
+  <button id="rewardBtn">领取奖励广告</button>
+
+  <!-- 弹窗广告按钮 -->
+  <button id="popupBtn">打开奖励弹窗</button>
+
+  <script>
+    // 激励广告：点击后触发广告
+    document.getElementById("rewardBtn").onclick = function() {
+      show_9780898();  // SDK 自带的函数
+      alert("广告看完后，你可以给用户发奖励");
+    };
+
+    // 奖励弹窗：直接进入优惠页面
+    document.getElementById("popupBtn").onclick = function() {
+      show_9780898({ type: 'rewardedPopup' });
+    };
+
+    // 应用内插页式广告（自动弹出）
+    show_9780898({
+      type: 'inApp',
+      inAppSettings: {
+        frequency: 2,   // 自动展示 2 次
+        capping: 0.1,   // 限制 6 分钟内最多展示
+        interval: 30,   // 广告之间间隔 30 秒
+        timeout: 5,     // 页面打开后 5 秒再显示
+        everyPage: false
+      }
+    });
+  </script>
+</body>
 </html>
